@@ -40,4 +40,11 @@ export interface ISubscriptionManager {
    * @param subscriber
    */
   unsubscribe(subscriber: ISubscriber): Promise<any>;
+
+  /**
+   * Unsubscribes all subscriptions by connection id
+   *
+   * @param subscriber
+   */
+  unsubscribeAllByConnectionId(connectionId: string): Promise<any>;
 }

@@ -112,6 +112,28 @@ class DynamoDBSubscriptionManager implements ISubscriptionManager {
       })
       .promise();
   };
+
+  unsubscribeAllByConnectionId = async (connectionId: string) => {
+    console.log(`Removing all subscriptions from ${connectionId}`);
+    
+    const { Items } = await this.db.scan({
+      TableName: this.tableName,
+      FilterExpression : 'connection.id = :connection_id',
+      ExpressionAttributeValues : {':connection_id' : connectionId}
+    });
+
+    console.log(`Removing ${JSON.stringify(Items)}`)
+
+    await Promise.all(
+      Items.map((item) => this.db.delete({
+        TableName: this.tableName,
+        Key: {
+          event: item.event,
+          subscriptionId: item.subscriptionId,
+        },
+      }))
+    )
+  }
 }
 
 export { DynamoDBSubscriptionManager };

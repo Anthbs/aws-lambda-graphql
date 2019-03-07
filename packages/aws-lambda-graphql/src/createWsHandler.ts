@@ -64,6 +64,7 @@ function createWsHandler({
             event.requestContext.connectionId,
           );
           await connectionManager.unregisterConnection(connection);
+          await subscriptionManager.unsubscribeAllByConnectionId(event.requestContext.connectionId);
 
           return;
         }

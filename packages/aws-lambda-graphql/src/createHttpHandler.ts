@@ -46,12 +46,14 @@ type Options = {
   connectionManager: IConnectionManager;
   schema: GraphQLSchema;
   formatResponse?: (body: any) => string;
+  extraHeaders: any;
 };
 
 function createHttpHandler({
   connectionManager,
   schema,
   formatResponse = JSON.stringify,
+  extraHeaders,
 }: Options): APIGatewayProxyHandler {
   return async function serveHttp(event) {
     try {
@@ -70,6 +72,7 @@ function createHttpHandler({
         body: formatResponse(result),
         headers: {
           'Content-Type': 'application/json',
+          ...extraHeaders,
         },
         statusCode: 200,
       };

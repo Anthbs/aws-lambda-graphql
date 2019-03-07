@@ -71,6 +71,8 @@ class MemorySubscriptionManager implements ISubscriptionManager {
       );
     }
   };
+
+  unsubscribeAllByConnectionId = async (connectionId: string) => {}
 }
 
 export { MemorySubscriptionManager };
