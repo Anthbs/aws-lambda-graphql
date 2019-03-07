@@ -46,7 +46,7 @@ type Options = {
   connectionManager: IConnectionManager;
   schema: GraphQLSchema;
   formatResponse?: (body: any) => string;
-  extraHeaders: any;
+  extraHeaders?: any;
 };
 
 function createHttpHandler({
